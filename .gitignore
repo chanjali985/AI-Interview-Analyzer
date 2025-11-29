@@ -40,10 +40,10 @@ wheels/
 analysis_result.json
 results.json
 
-# Audio files (optional - uncomment if you don't want to track audio files)
-# *.mp3
-# *.wav
-# *.m4a
+Audio files (optional - uncomment if you don't want to track audio files)
+*.mp3
+*.wav
+*.m4a
 
 # OS
 .DS_Store
