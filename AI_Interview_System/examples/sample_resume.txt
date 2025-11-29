@@ -1,0 +1,35 @@
+John 
+Software Engineer
+Email: john@email.com
+Phone: (555) 123-4567
+
+PROFESSIONAL SUMMARY
+Experienced software engineer with 5+ years of expertise in full-stack development, 
+specializing in Python, JavaScript, and cloud technologies. Proven track record of 
+building scalable web applications and RESTful APIs.
+
+TECHNICAL SKILLS
+Programming Languages: Python, JavaScript, TypeScript, Java
+Web Frameworks: Django, Flask, React, Node.js
+Databases: PostgreSQL, MongoDB, Redis
+Cloud & DevOps: AWS (EC2, S3, Lambda), Docker, Kubernetes, CI/CD
+Tools: Git, Jenkins, Terraform, Elasticsearch
+
+PROFESSIONAL EXPERIENCE
+
+Senior Software Engineer | Tech Corp | 2021 - Present
+- Developed and maintained microservices using Python and Django
+- Built RESTful APIs serving 1M+ requests daily
+- Implemented CI/CD pipelines using Docker and Kubernetes
+- Collaborated with cross-functional teams using Agile methodologies
+
+Software Engineer | StartupXYZ | 2019 - 2021
+- Created responsive web applications using React and Node.js
+- Optimized database queries reducing response time by 40%
+- Deployed applications on AWS infrastructure
+- Mentored junior developers on best practices
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology | 2015 - 2019
+
