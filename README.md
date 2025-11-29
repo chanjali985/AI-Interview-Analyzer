@@ -114,7 +114,7 @@ ollama pull llama3.2
 
 ```bash
 # Navigate to project directory
-cd /path/to/ai
+cd /path/to/project_directory_name
 
 # Create virtual environment
 python3 -m venv venv
