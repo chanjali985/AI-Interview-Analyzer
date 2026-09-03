@@ -1,0 +1,80 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<p style="margin:0 0 14px; font-size:16px;">Hi {{ candidate_name }},</p>
+
+<p style="margin:0 0 18px; font-size:15px; line-height:1.65; color:#3b4252;">
+  Thanks for completing the interview for the <strong>{{ role_title }}</strong> role. Your responses have
+  been analysed and your feedback report is below.
+</p>
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; border-radius:12px; background:{{ score_bg }}; margin-bottom:22px;">
+  <tr>
+    <td style="padding:22px 24px;" align="center">
+      <div style="font-size:12px; letter-spacing:1.2px; text-transform:uppercase; color:#ffffff; opacity:0.82;">Overall score</div>
+      <div style="font-size:44px; font-weight:700; color:#ffffff; line-height:1.1; margin:6px 0 2px;">{{ overall_score|score }}<span style="font-size:20px; opacity:0.75;">/10</span></div>
+      <div style="font-size:14px; color:#ffffff; opacity:0.9;">{{ verdict_label }}</div>
+    </td>
+  </tr>
+</table>
+
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-bottom:10px;">Score breakdown</div>
+<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; margin-bottom:22px;">
+  {% for label, value in dimensions %}
+  <tr>
+    <td style="padding:7px 0; font-size:14px; color:#3b4252; width:48%;">{{ label }}</td>
+    <td style="padding:7px 0; width:38%;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; background:#e9ecf2; border-radius:5px;">
+        <tr><td style="height:9px; width:{{ (value * 10)|round(0, 'floor')|int }}%; background:#2563eb; border-radius:5px; font-size:0; line-height:0;">&nbsp;</td><td style="font-size:0; line-height:0;">&nbsp;</td></tr>
+      </table>
+    </td>
+    <td style="padding:7px 0 7px 12px; font-size:14px; font-weight:600; color:#111827; text-align:right;">{{ value|score }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td style="padding:7px 0; font-size:14px; color:#3b4252;">Resume &amp; answer skill match</td>
+    <td style="padding:7px 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; background:#e9ecf2; border-radius:5px;">
+        <tr><td style="height:9px; width:{{ (relevance_score * 100)|round(0, 'floor')|int }}%; background:#0ea5a4; border-radius:5px; font-size:0; line-height:0;">&nbsp;</td><td style="font-size:0; line-height:0;">&nbsp;</td></tr>
+      </table>
+    </td>
+    <td style="padding:7px 0 7px 12px; font-size:14px; font-weight:600; color:#111827; text-align:right;">{{ relevance_score|pct }}</td>
+  </tr>
+</table>
+
+{% if summary %}
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-bottom:8px;">Summary</div>
+<ul style="margin:0 0 22px; padding-left:20px; font-size:14px; line-height:1.75; color:#3b4252;">
+  {% for point in summary %}<li>{{ point }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if strengths %}
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#15803d; margin-bottom:8px;">What went well</div>
+<ul style="margin:0 0 22px; padding-left:20px; font-size:14px; line-height:1.75; color:#3b4252;">
+  {% for point in strengths %}<li>{{ point }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if improvements %}
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#b45309; margin-bottom:8px;">Where to grow</div>
+<ul style="margin:0 0 22px; padding-left:20px; font-size:14px; line-height:1.75; color:#3b4252;">
+  {% for point in improvements %}<li>{{ point }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if skills_answer %}
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-bottom:8px;">Skills you demonstrated</div>
+<div style="margin-bottom:22px;">
+  {% for skill in skills_answer %}<span style="display:inline-block; padding:4px 11px; margin:0 6px 6px 0; background:#eef2ff; color:#3730a3; border-radius:20px; font-size:12.5px;">{{ skill }}</span>{% endfor %}
+</div>
+{% endif %}
+
+<p style="margin:0; font-size:14px; line-height:1.65; color:#3b4252;">
+  {% if attached_pdf %}A PDF copy of this report is attached. {% endif %}Our team will be in touch about next steps.
+</p>
+{% endblock %}
+
+{% block footer %}
+You are receiving this because you completed a recorded interview for {{ role_title }}.
+Scores come from an automated analysis of your recorded answers and are reviewed by a person before any decision is made.
+{% endblock %}

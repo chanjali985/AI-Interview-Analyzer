@@ -1,0 +1,28 @@
+[project]
+name = "ai-interview-analyzer"
+version = "2.0.0"
+description = "Automated interview analysis: transcription, scoring, skill matching and emailed reports."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = [".venv", "data", "../legacy", "../Other_questions_code"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4"]
+ignore = ["B008", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402", "B011"]
+"app/main.py" = ["E402"]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["app/main.py", "tests/*"]

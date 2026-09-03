@@ -1,0 +1,55 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<p style="margin:0 0 6px; font-size:16px; font-weight:600;">{{ candidate_name }} &mdash; {{ role_title }}</p>
+<p style="margin:0 0 18px; font-size:13.5px; color:#6b7280;">{{ candidate_email }}{% if submitted_at %} &middot; submitted {{ submitted_at }}{% endif %}</p>
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; border:1px solid #e6e9ef; border-radius:12px; margin-bottom:22px;">
+  <tr>
+    <td style="padding:18px 20px; border-right:1px solid #e6e9ef;" align="center" width="50%">
+      <div style="font-size:11.5px; letter-spacing:1px; text-transform:uppercase; color:#6b7280;">Overall</div>
+      <div style="font-size:34px; font-weight:700; color:{{ score_color }}; line-height:1.2;">{{ overall_score|score }}</div>
+      <div style="font-size:13px; color:#3b4252;">{{ verdict_label }}</div>
+    </td>
+    <td style="padding:18px 20px;" align="center" width="50%">
+      <div style="font-size:11.5px; letter-spacing:1px; text-transform:uppercase; color:#6b7280;">Skill match</div>
+      <div style="font-size:34px; font-weight:700; color:#0ea5a4; line-height:1.2;">{{ relevance_score|pct }}</div>
+      <div style="font-size:13px; color:#3b4252;">resume vs answers</div>
+    </td>
+  </tr>
+</table>
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; margin-bottom:22px;">
+  {% for label, value in dimensions %}
+  <tr>
+    <td style="padding:6px 0; font-size:14px; color:#3b4252;">{{ label }}</td>
+    <td style="padding:6px 0; font-size:14px; font-weight:600; color:#111827; text-align:right;">{{ value|score }} / 10</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% if summary %}
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-bottom:8px;">Assessment</div>
+<ul style="margin:0 0 20px; padding-left:20px; font-size:14px; line-height:1.75; color:#3b4252;">
+  {% for point in summary %}<li>{{ point }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+{% if skills_answer %}
+<div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b7280; margin-bottom:8px;">Skills evidenced in answers</div>
+<div style="margin-bottom:20px;">
+  {% for skill in skills_answer %}<span style="display:inline-block; padding:4px 11px; margin:0 6px 6px 0; background:#eef2ff; color:#3730a3; border-radius:20px; font-size:12.5px;">{{ skill }}</span>{% endfor %}
+</div>
+{% endif %}
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:6px 0 4px;">
+  <tr>
+    <td style="border-radius:8px; background:#111827;">
+      <a href="{{ report_url }}" style="display:inline-block; padding:12px 24px; font-size:14.5px; font-weight:600; color:#ffffff; text-decoration:none;">Open full report</a>
+    </td>
+  </tr>
+</table>
+<p style="margin:10px 0 0; font-size:12.5px; color:#6b7280;">Transcripts, per-question scores and the audio recordings are on the dashboard.</p>
+{% if degraded_note %}
+<p style="margin:16px 0 0; padding:10px 12px; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; font-size:12.5px; color:#9a3412;">{{ degraded_note }}</p>
+{% endif %}
+{% endblock %}

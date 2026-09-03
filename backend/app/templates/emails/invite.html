@@ -1,0 +1,42 @@
+{% extends "emails/base.html" %}
+{% block content %}
+<p style="margin:0 0 14px; font-size:16px;">Hi {{ candidate_name }},</p>
+
+<p style="margin:0 0 14px; font-size:15px; line-height:1.65; color:#3b4252;">
+  Thank you for your interest in the <strong>{{ role_title }}</strong> role{% if department %} in {{ department }}{% endif %}.
+  The next step is a short recorded interview you can complete from your browser, whenever suits you.
+</p>
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; background:#f7f8fa; border:1px solid #e6e9ef; border-radius:10px; margin:18px 0;">
+  <tr>
+    <td style="padding:16px 18px; font-size:14px; line-height:1.8; color:#3b4252;">
+      <strong style="color:#111827;">What to expect</strong><br>
+      &bull; {{ question_count }} question{{ '' if question_count == 1 else 's' }}, answered by voice<br>
+      &bull; About {{ estimated_minutes }} minutes in total<br>
+      &bull; You can re-record an answer before you submit<br>
+      &bull; A microphone and a quiet room are all you need
+    </td>
+  </tr>
+</table>
+
+<table role="presentation" cellpadding="0" cellspacing="0" style="margin:22px 0;">
+  <tr>
+    <td style="border-radius:8px; background:#2563eb;">
+      <a href="{{ invite_url }}" style="display:inline-block; padding:13px 28px; font-size:15px; font-weight:600; color:#ffffff; text-decoration:none;">Start your interview</a>
+    </td>
+  </tr>
+</table>
+
+<p style="margin:0 0 10px; font-size:13px; color:#6b7280; line-height:1.6;">
+  If the button does not work, copy this link into your browser:<br>
+  <a href="{{ invite_url }}" style="color:#2563eb; word-break:break-all;">{{ invite_url }}</a>
+</p>
+
+{% if expires_at %}
+<p style="margin:14px 0 0; font-size:13px; color:#6b7280;">
+  This link expires on <strong>{{ expires_at }}</strong>.
+</p>
+{% endif %}
+
+<p style="margin:20px 0 0; font-size:15px; color:#3b4252;">Good luck &mdash; we are looking forward to hearing from you.</p>
+{% endblock %}

@@ -1,0 +1,14 @@
+# Local AI models: speech-to-text and sentence embeddings.
+# Installed in the Docker image and needed for a real deployment.
+# Skipped in CI (unit tests stub these out) because the wheels are large.
+-r requirements.txt
+
+faster-whisper>=1.0.3
+sentence-transformers>=3.0.0
+torch>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# Optional fallback speech-to-text path (TRANSCRIPTION_PROVIDER=google)
+SpeechRecognition>=3.10.1
+pydub>=0.25.1

@@ -1,54 +1,41 @@
-# Environment variables
+# Secrets
 .env
+.env.*
+!.env.example
 
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-env/
+.venv/
 venv/
-ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
+env/
 *.egg-info/
-.installed.cfg
-*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
 
-# IDE
+# Application data (databases, uploaded audio and resumes)
+data/
+backend/data/
+*.db
+*.db-shm
+*.db-wal
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+
+# Editors and OS
 .vscode/
 .idea/
 *.swp
-*.swo
-*~
-
-# Output files
-*.json
-!package.json
-!package-lock.json
-analysis_result.json
-results.json
-
-Audio files (optional - uncomment if you don't want to track audio files)
-*.mp3
-*.wav
-*.m4a
-
-# OS
 .DS_Store
 Thumbs.db
-
-# macOS auto-generated folders
 __MACOSX/
-.DS_Store
+
+# Local model caches
+.cache/
+models/

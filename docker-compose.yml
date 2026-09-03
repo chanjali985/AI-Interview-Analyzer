@@ -1,0 +1,66 @@
+name: ai-interview-analyzer
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        WHISPER_MODEL: ${WHISPER_MODEL:-base}
+    image: ai-interview-analyzer:latest
+    env_file: .env
+    environment:
+      # Inside the compose network Ollama and Postgres are reachable by service name.
+      OLLAMA_BASE_URL: http://ollama:11434
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://interview:interview@db:5432/interview}
+      STORAGE_DIR: /app/data/uploads
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - app-data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: interview
+      POSTGRES_PASSWORD: interview
+      POSTGRES_DB: interview
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U interview"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-models:/root/.ollama
+    # Uncomment to expose Ollama on the host for debugging:
+    # ports:
+    #   - "11434:11434"
+    restart: unless-stopped
+
+  # One-shot helper: pulls the model Ollama needs, then exits.
+  #   docker compose run --rm model-init
+  model-init:
+    image: ollama/ollama:latest
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["ollama pull ${LLM_MODEL:-llama3.2}"]
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    depends_on:
+      - ollama
+    profiles: ["setup"]
+
+volumes:
+  app-data:
+  db-data:
+  ollama-models:
