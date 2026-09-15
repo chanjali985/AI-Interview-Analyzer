@@ -98,7 +98,7 @@ class Settings(BaseSettings):
     MAIL_FROM_NAME: str = "AI Interview Analyzer"
     MAIL_REPLY_TO: str | None = None
     # Recruiter address that receives a copy of every finished report.
-    RECRUITER_NOTIFY_EMAIL: str | None = "your-address@gmail.com"
+    RECRUITER_NOTIFY_EMAIL: str | None = None
     SEND_SCORES_TO_CANDIDATE: bool = True
     ATTACH_PDF_REPORT: bool = True
 
